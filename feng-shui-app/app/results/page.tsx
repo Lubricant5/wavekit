@@ -15,6 +15,7 @@ export default function ResultsPage() {
   const router = useRouter();
   const [analysis, setAnalysis] = useState<FengShuiAnalysis | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isDemo, setIsDemo] = useState(false);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("fengShuiAnalysis");
@@ -25,6 +26,7 @@ export default function ResultsPage() {
     }
     setAnalysis(JSON.parse(stored));
     setImageUrl(img);
+    setIsDemo(sessionStorage.getItem("fengShuiDemo") === "true");
   }, [router]);
 
   if (!analysis) {
@@ -63,6 +65,12 @@ export default function ResultsPage() {
       </header>
 
       <div className="max-w-5xl mx-auto px-6 py-10 space-y-8">
+        {isDemo && (
+          <div className="bg-amber-50 border border-amber-300 text-amber-800 px-5 py-3 rounded-xl text-sm flex items-center gap-3">
+            <span className="text-lg">🎭</span>
+            <span><strong>Demo mode</strong> — no API key detected, showing sample analysis. Add <code className="bg-amber-100 px-1 rounded">ANTHROPIC_API_KEY</code> to <code className="bg-amber-100 px-1 rounded">.env.local</code> for real AI analysis.</span>
+          </div>
+        )}
         {/* Hero Score Banner */}
         <div className="bg-white/80 rounded-2xl border border-stone-200/60 p-8 shadow-sm">
           <div className="flex flex-col md:flex-row gap-8 items-start">

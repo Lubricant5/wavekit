@@ -62,6 +62,7 @@ export default function Home() {
 
       sessionStorage.setItem("fengShuiAnalysis", JSON.stringify(data.analysis));
       sessionStorage.setItem("fengShuiImage", preview!);
+      sessionStorage.setItem("fengShuiDemo", data.demo ? "true" : "false");
       router.push("/results");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
